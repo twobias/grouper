@@ -1,0 +1,287 @@
+body {
+  font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  margin-top: 5px;
+}
+
+button {
+  float:left;  
+}
+
+input, select, button {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+select {
+  float:left;  
+}
+
+/*	--------------------------------------------------
+	Reveal Modals
+	-------------------------------------------------- */
+		
+	.reveal-modal-bg { 
+		position: fixed; 
+		height: 100%;
+		width: 100%;
+		background: #000;
+		background: rgba(0,0,0,.8);
+		z-index: 100;
+		display: none;
+		top: 0;
+		left: 0; 
+		}
+	
+	.reveal-modal {
+		visibility: hidden;
+		top: 20px; 
+		left: 50%;
+		margin-left: -300px;
+		width: 420px;
+		background: #fff;
+		position: absolute;
+		z-index: 101;
+		padding: 30px 40px 34px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		-moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+		-webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+		-box-shadow: 0 0 10px rgba(0,0,0,.4);
+		}
+	
+	.reveal-modal .close-reveal-modal {
+		font-size: 22px;
+		line-height: .5;
+		position: absolute;
+		top: 8px;
+		right: 11px;
+		color: #aaa;
+		text-shadow: 0 -1px 1px rbga(0,0,0,.6);
+		font-weight: bold;
+		cursor: pointer;
+		} 
+
+/*--------------------------------------------------------------------------
+  END of reveal modal
+  --------------------------------------------------------------------------*/
+
+#footer {
+  font-size: x-small;
+  font-style: italic;
+  text-align: right;
+  width:100%;
+  padding-top: .5em;
+  padding-bottom: .5em;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+
+.groupname {
+  float: right;
+  font-style: bold;
+  font-size: larger;
+}
+
+.groupDelete {
+  color: red; 
+  cursor: pointer;
+  float: right;
+  font-style: bold;
+  font-size: larger;
+}
+.todo {
+  font-size: small;
+}
+
+#peopleBox, #groupBox { 
+  margin: 0; 
+  min-width: 95%;
+  padding-left: 1.5em;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  display: inline-block;
+  clear: left;
+   /*
+ makes ui elements unselectable text-wise
+   */
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+.groupBox { 
+  margin: .5em; 
+  min-width: 138px;
+  max-width: 380px;
+  padding: 10px;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  display: inline-block;
+  background: rgb(25, 138, 0);
+  background: rgba(25, 138, 0, 1);
+  border:1px dotted #000000; 
+  color : #ffd900;
+}
+
+#people {
+  max-width: 2000px;
+}
+
+.peoplebox .ui-selected {
+  color: black;
+  background: #F39814
+}
+
+.peoplebox .ui-selecting {
+  background: #FECA40
+}
+
+.sortConnecter .placeholder { 
+  background: rgb(210,210,210);
+  background: rgba(210,210,210,1);
+  border:1px dotted #FFFFFF; 
+}
+
+ul .groupbox { 
+  clear: left;
+}
+
+.peoplebox li, .groupbox li { 
+  float: left; 
+  margin: 0 2px 2px 2px; 
+  padding: 0.3em; 
+  cursor: pointer; 
+  cursor: hand;
+  font-size:13px;
+  text-shadow:0 1px 0 rgba(0,0,0,.2);
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  color:#000;
+  text-align: center;
+  vertical-align: middle;
+  background: #AFCC5C;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aad44f', endColorstr='#609d29',GradientType=0 );
+  border:1px solid #5b8821;
+}
+
+.peoplebox li, #people li, .groupbox li, #addpersonText{
+  width: 138px;
+  /*height: 32px;*/
+}
+
+.removePerson .ui-state-active {
+  background: rgb(255,100,100);
+  background: rgba(255,100,100,1);
+}
+
+.removePerson .ui-state-highlight {
+  background: rgb(255,0,0);
+  background: rgba(255,0,0,1);
+}
+
+h1 {
+  float:left ;
+}
+
+.h1Button {
+  padding: .25em;
+  margin-bottom: -.1em;
+  margin-top: 0;
+  cursor: hand;
+  cursor: pointer; 
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  border:1px solid #000000;
+  background: rgb(163, 210, 214);
+  background: rgba(163, 210, 214, 1);
+}
+
+.h1Interface {
+  margin-top: 0;
+  float:left;
+  font-size: 100%;
+  font-weight: normal;
+  margin-bottom: -.1em;
+  cursor: hand;
+  cursor: pointer; 
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+}
+
+.unselected {
+  color: #000;
+  background: #DEDEDE;
+}
+
+h2 {
+  clear:left ;
+  margin-left: -.5em;
+}
+
+#addperson {
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#import, #formGroups {
+  clear: both;
+}
+
+#export {
+  float: left;
+  padding-left: 1.5em;
+  margin-right: 1em;
+  padding-bottom: .5em;
+}
+
+
+.button {
+    width:138px;
+    height:33px;
+    font-size:13px;
+    font-weight:normal;
+    line-height:33px;
+    text-shadow:0 1px 0 rgba(0,0,0,.2);
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    display: inline-block;
+    text-align: center;
+}
+
+#spinner, #spinnerN{
+  width: 3ex;
+}
+
+input, .ui-spinner-input {
+  vertical-align: top;
+  
+}
+
+.ui-icon {
+  cursor: pointer;
+}
+
+.button.green {
+    color:#fff;
+    text-align: center;
+    background: rgb(170,212,79);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aad44f', endColorstr='#609d29',GradientType=0 );
+    border:1px solid #5b8821;
+}
+
+.button .green :hover {
+    background: rgb(90,162,49);
+}
