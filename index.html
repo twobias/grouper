@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <meta name="title" content="Grouper" />
+    <meta charset="UTF-8">
+    <LINK REL=StyleSheet HREF="css/style.css" TYPE="text/css" MEDIA=all>
+  </head>
+  
+  <body onload="init()">
+
+    <title>Grouper</title>
+      
+      <div id="peopleBox">
+        <div id="import">
+          <button onclick='importClassFromLectio(event)'>Importér klasse: </button>
+          <select id="school" name="school" onchange="loadClasses()"> </select>
+          <select id="class" name="Class"> </select>
+        </div>
+        <input type="text" id="addPersonText" name="addPerson" autofocus="autofocus" placeholder="Tilføj person"><br />
+        <ul id="people">
+        </ul>
+        <button id="rndPersonButton" onclick='selectRandomPerson()'>Vælg tilfældig person</button>
+        
+      </div>
+      
+      <hr>
+
+
+      <div id="groupBox">
+        <div id="formGroups">
+          <button onclick='groupsOfN()'>Lav grupper á </button> <input id="spinner" name="value" value="3" /> <!--<label><input type="checkbox" name="matrix" value="matrix" disabled><del>in matrix</del></label>-->
+          <br /><button onclick='nGroups()'>Lav <i>n</i> grupper </button> <input id="spinnerN" name="n" value="3" />
+          <input type="text" id="addGroupText" name="addGroup" autofocus="autofocus" placeholder="Tilføj gruppe">
+        </div>
+        <div id="groups">
+        </div>
+        <button onclick='clearPeople()'>Ryd alt</button>
+        <button onclick='exportList()'>Eksportér</button>
+        <button id='randomGroupButton' onclick='selectRandomGroup()'>Vælg tilfældig gruppe</button>
+        
+      </div>
+    
+    <div id="modal" class="reveal-modal">
+    </div>
+    
+    <footer id="footer">This work is licensed by <a href=http://tobias.bindslet.dk>Tobias Bindslet</a> under a <a href=http://creativecommons.org/licenses/by-nc/3.0/>Creative Commons License for attributed, non-commercial use</a>.</footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="js/jquery.reveal.js"></script>
+    <script src="js/jquery.ui.touch-punch.min"></script>
+    <script src="js/grouper.js"></script>
+    <script src="js/scraper.js"></script>    
+  
+  </body>
+  
+  <!-- also see: http://www.windowsillsoft.com/GroupCreator/-->
+</html>
