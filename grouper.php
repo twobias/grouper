@@ -5,7 +5,7 @@
   </head>
   
   <body onload="loadAll()">
-    test
+
     <title>Grouper</title>
       
       <div id="peopleBox">
