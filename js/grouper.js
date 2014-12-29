@@ -1,7 +1,7 @@
-var init = function() {
+var init = function () {
   setSortables();
-  $( "#spinner" ).spinner({
-    spin: function( event, ui ) {
+  $("#spinner").spinner({
+    spin: function (event, ui) {
       if ( ui.value > 16 ) {
         $( this ).spinner( "value", 2 );
         groupsOfN(2);
@@ -14,8 +14,8 @@ var init = function() {
       groupsOfN(ui.value);
     }
   });
-  $( "#spinnerN" ).spinner({
-    spin: function( event, ui ) {
+  $("#spinnerN").spinner({
+    spin: function (event, ui) {
       if ( ui.value > 28 ) {
         $( this ).spinner( "value", 1 );
         nGroups(1);
@@ -31,11 +31,11 @@ var init = function() {
   loadAll();
 };
 
-var loadAll = function() {
+var loadAll = function () {
   loadFromLocal();
   loadSchools();
   loadClasses();
-  if (($('ul#people > li').size() == 0) && ($('#groups > ul').size() == 0)) {
+  if (($('ul#people > li').size() === 0) && ($('#groups > ul').size() === 0)) {
     $('#formGroups').hide();
     $('#randomGroupButton').hide();
     $('#groups').hide();
@@ -46,23 +46,23 @@ var loadAll = function() {
   }
 };
 
-var loadSchools = function() {
+var loadSchools = function () {
   $('select#school').empty();
   $('select#school').append($('<option></option>').attr("value", 71).text("Greve Gymnasium"));
   getSchoolIdsFromLectio();
 };
 
-var loadClasses = function() {
+var loadClasses = function () {
   //Todo: save selected school for later use
   $('select#class').empty();
   getClassIdsFromLectio();
 };
 
-var clearPeople = function() {
-  $('ul#people > li').each(function() {
+var clearPeople = function () {
+  $('ul#people > li').each(function () {
     this.remove();
   });
-  $('#groups > ul').each(function() {
+  $('#groups > ul').each(function () {
     this.remove();
   });
   saveToLocal();
@@ -74,9 +74,9 @@ var clearPeople = function() {
   }
 };
 
-var selectRandomPerson = function() {
+var selectRandomPerson = function () {
   var nameArray = new Array();
-  $('ul#people > li').each(function() {
+  $('ul#people > li').each(function () {
     nameArray.push(this);
   });
   var lot = Math.floor(Math.random()*nameArray.length);
@@ -84,9 +84,9 @@ var selectRandomPerson = function() {
   htmlModal ("<ul><li><strong>" + name + "</strong></li></ul>");
 }
 
-var selectRandomGroup = function() {
+var selectRandomGroup = function () {
   var groupArray = new Array();
-  $('#groups > ul').each(function() {
+  $('#groups > ul').each(function () {
     groupArray.push(this);
   });
   var lot = Math.floor(Math.random()*groupArray.length);
@@ -101,10 +101,10 @@ var selectRandomGroup = function() {
   htmlModal ("<ul><strong>" + name + "</strong></ul>");
 }
 
-var exportList = function() {
+var exportList = function () {
   var expoPeople = "";
   var count = 0;
-  $('ul#people > li').each(function() {
+  $('ul#people > li').each(function () {
     if (this.textContent === undefined) {
     } else {
       count++;
@@ -118,7 +118,7 @@ var exportList = function() {
   var countGroups = 0; 
   var expoGroups = "";
   var g = document.getElementById("groups");
-  $('#groups > ul').each(function() {
+  $('#groups > ul').each(function () {
     countGroups++;
     if (countGroups > 1) {
       expoGroups += "\n\n";
@@ -151,11 +151,11 @@ var textModal = function (textToShowLeft, textToShowRight) {
   
   var textBoxLeft = document.createElement('textarea');
   textBoxLeft.readOnly = true;
-  textBoxLeft.onfocus = function() {
+  textBoxLeft.onfocus = function () {
     textBoxLeft.select();
 
     // Work around Chrome's little problem
-    textBoxLeft.onmouseup = function() {
+    textBoxLeft.onmouseup = function () {
       // Prevent further mouseup intervention
       textBoxLeft.onmouseup = null;
       return false;
@@ -181,17 +181,17 @@ var textModal = function (textToShowLeft, textToShowRight) {
   });
 }
 
-var groupsOfN = function(n) {
+var groupsOfN = function (n) {
   //generate groups from the #people list
   var group = [];
   var groupArr = [];
   n = typeof n !== 'undefined' ? n : $('#spinner').spinner( "value" );
   var i = 1;
-  $('ul.groupbox > li').each(function() {
+  $('ul.groupbox > li').each(function () {
     groupArr.push(this);
     this.remove();
   });
-  $('ul.groupbox').each(function() {
+  $('ul.groupbox').each(function () {
     if (this.id !== "people") {
       this.remove();
     }
@@ -234,16 +234,16 @@ var groupsOfN = function(n) {
   saveToLocal();
 }
 
-var nGroups = function(n) {
+var nGroups = function (n) {
   var group = [];
   var groupArr = [];
   n = typeof n !== 'undefined' ? n : $('#spinnerN').spinner( "value" );
   var i = 1;
-  $('ul.groupbox > li').each(function() {
+  $('ul.groupbox > li').each(function () {
     groupArr.push(this);
     this.remove();
   });
-  $('ul.groupbox').each(function() {
+  $('ul.groupbox').each(function () {
     if (this.id !== "people") {
       this.remove();
     }
@@ -301,12 +301,12 @@ var nGroups = function(n) {
   saveToLocal();
 }
 
-var deleteGroup = function(id){
-  $("ul.groupBox").each(function(i) {
+var deleteGroup = function (id){
+  $("ul.groupBox").each(function (i) {
     if ($(this)[0].id == id) {
       if (confirm("Slet gruppe " + i + "?")) {
-        $(this).hide(250, function() {
-          $(this).find("li").each(function(h) {
+        $(this).hide(250, function () {
+          $(this).find("li").each(function (h) {
             addPerson(this.innerHTML, false)
           });
           $(this).remove();
@@ -316,7 +316,7 @@ var deleteGroup = function(id){
   });
 }
 
-var setSortables = function() {
+var setSortables = function () {
   var ul = document.getElementById("people");
   ul.classList.add("groupBox");
   ul.classList.add("sortConnecter");
@@ -331,7 +331,7 @@ var setSortables = function() {
   });
 }
 
-var saveToLocal = function() {
+var saveToLocal = function () {
   //save everything to local storage
   if (!supportsLocalStorage()) { return false; }
   
@@ -351,7 +351,7 @@ var saveToLocal = function() {
   return true;
 }
 
-var loadFromLocal = function() {
+var loadFromLocal = function () {
   if (!supportsLocalStorage()) { return false; }
   if (localStorage.getItem('peopleList')) {
     var ul = document.getElementById("people");
@@ -377,8 +377,6 @@ function supportsLocalStorage() {
     return false;
   }
 }
-
-
 
 $("#addPersonText").keyup(function (e) {
   if (e.keyCode == 13) { //ENTER
@@ -424,7 +422,7 @@ $("body").keyup(function (e) {
   */
 });
 
-var addPerson = function(name, fade) {
+var addPerson = function (name, fade) {
   fade = typeof fade !== 'undefined' ? fade : 'false';
   var ul = document.getElementById("people");
   var li = document.createElement("li");
@@ -447,7 +445,7 @@ var addPerson = function(name, fade) {
   saveToLocal();
 }
 
-var addGroup = function(name, fade) {
+var addGroup = function (name, fade) {
   fade = typeof fade !== 'undefined' ? fade : 'false';
   var ul = document.createElement("ul");
   ul.classList.add("groupBox");
@@ -478,10 +476,10 @@ var addGroup = function(name, fade) {
 }
 
 
-$(document).keyup(function(e){
+$(document).keyup(function (e){
   if (e.keyCode == 46) { //|| (e.keyCode == 8)) { //DEL key
     $('people li[id=ui-selected]').remove();
-    $( ".ui-selected", this ).each(function() {
+    $( ".ui-selected", this ).each(function () {
       this.remove();
     });
     saveToLocal();

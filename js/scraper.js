@@ -30,7 +30,7 @@ var scrapeSchoolIdsFromLectio = function (sourceUrl) {
           $('select#school').append($('<option></option>').attr("value", src).text(linkText));
         //}
       }
-      loadClasses()
+      loadClasses();
     },
     error: function(status) {
       console.log("request error:" + sourceUrl + status.textError);
@@ -43,7 +43,6 @@ var getClassIdsFromLectio = function () {
   var classesUrl = "FindSkema.aspx?type=stamklasse";
   scrapeUrl = baseUrl + schoolUrl + classesUrl; 
   scrapeClassIdsFromLectio(scrapeUrl);
-  //console.log(scrapeUrl);
 };
 
 var scrapeClassIdsFromLectio = function (sourceUrl) {  
@@ -89,37 +88,9 @@ var scrapeClassFromLectio = function (sourceUrl) {
     dataType: "html",
     success: function(data) {
       //extract names from table
-      var studentName = [];
-      for (var i=1; i<40; i++)
-      { 
-        var iText = i;
-        if (i <= 9) {
-          iText = "0" + i;
-        }
-        if (data.search(" " + iText + '</span></td>') != -1) {//if student exists
-        //console.log(iText);
-          studentName[i] = data.substring(data.search(' ' + iText + '</span></td>') + 3);
-          studentName[i] = studentName[i].substring(0, studentName[i].search('</span></td><td class="nowrap"><span'));
-          studentName[i] = studentName[i].replace(/(<([^>]+)>)/ig,""); //remove all html <tags>
-          //console.log(studentName[i]);
-          studentName[i] = htmlDecode(studentName[i]); //decode html-chars such as &aring;
-          studentName[i] = studentName[i].replace(/\r?\n|\r/g," "); //replace newlines with spaces
-          studentName[i] = studentName[i].replace(/[ \t\r]+/g," "); //remove extra whitespace, tabs etc
-          //change middle names to initials
-          var names = studentName[i].split(" ");
-          names.shift(); //remove first empty space name
-          var midNames = 0;
-          for (var n = 1; n < names.length - 1; n++) {
-            names[n] = names[n].charAt(0);
-            midNames = n;
-          }
-          studentName[i] = names[0]; 
-          for (var m = 0; m < midNames; m++) {
-            studentName[i] += " " + names[m+1] + ".";
-          }
-          studentName[i] += " " + names[m+1];
-          addPerson(studentName[i], false);
-        }
+      var studentNames = studentNamesFromHtml(data);
+      for (var n = 0; n < studentNames.length; n++) {
+        addPerson(studentNames[n], false);
       }
       saveToLocal();
     },
@@ -128,3 +99,49 @@ var scrapeClassFromLectio = function (sourceUrl) {
     }
   });
 };
+
+var studentNamesFromHtml = function(html) {
+  var sNames = [];
+  //regex search to search for table lines with student
+  //e.g.: '1iE 30</span></td><td class="largeCol printUpscaleFontFornavn" lectioContextCard="S10126130423">     <span class="noWrap">       <a id="s_m_Content_Content_laerereleverpanel_alm_gv_ctl02_lnk1" href="/lectio/71/SkemaNy.aspx?type=elev&amp;elevid=10126130423">Alexander Ulbæch</a>          </span>           </td><td class="largeCol" lectioContextCard="S10126130423"><span class="noWrap">Dupont</span></td><td class="nowrap"><span'
+  var regExp = /[1-3][a-zA-ZæøåÆØÅ]E?F? [0-9][0-9]?<\/span><\/td>/g;
+               /*
+               _number 1-3_
+               _letter(class designation: danish letter)_
+               _optional E
+               _optional F_
+               _space_
+               _1-2 digit number_
+               _</span></td><td class="largeCol printUpscaleFontFornavn_
+               */
+  //console.log(html.split(regExp));
+  sNames = html.split(regExp);
+  sNames.shift(); //drop stuff before first match
+  for (var n = 0; n < sNames.length; n++) {
+    sNames[n] = studentNameFromHTML(sNames[n]);
+  }
+  return sNames;
+}
+
+var studentNameFromHTML = function(html) {
+  var sName = html.substring(0, html.search('</span></td><td class="nowrap"><span')); //cut off everything after the last name
+  //sName = sName.substring(sName.search('>'), sName.length); //cut off everything before a > (remove half-html> tags leftover from regexp search)
+  sName = sName.replace(/(<([^>]+)>)/ig,""); //remove all html <tags>
+  sName = htmlDecode(sName); //decode html-chars such as &aring;
+  sName = sName.replace(/\r?\n|\r/g," "); //replace newlines with spaces
+  sName = sName.replace(/[ \t\r]+/g," "); //remove extra whitespace, tabs etc
+  //change middle names to initials
+  var names = sName.split(" ");
+  names.shift(); //remove first empty space name
+  var midNames = 0;
+  for (var n = 1; n < names.length - 1; n++) {
+    names[n] = names[n].charAt(0);
+    midNames = n;
+  }
+  sName = names[0]; 
+  for (var m = 0; m < midNames; m++) {
+    sName += " " + names[m+1] + ".";
+  }
+  sName += " " + names[m+1];
+  return sName;
+}

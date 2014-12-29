@@ -1,8 +1,38 @@
-body {
+html, body, #container {
   font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
   height: 100%;
   margin: 0;
-  margin-top: 5px;
+}
+
+body > #container {
+  height: auto;
+  min-height: 100%;
+}
+
+#content {
+  padding-bottom: 2em;
+  padding-top: 10px;
+}
+
+#header {
+  font-family: verdana, arial, sans-serif; 
+  text-align:center;
+  padding:20px;
+  margin:0;
+  border-bottom:1px solid #ddd;
+  font-size:0.8em;
+  background: #FFCC00;  
+  width: 100%;
+}
+
+#footer {
+  font-size: x-small;
+  font-style: italic;
+  text-align: right;
+  clear: both;
+  position: relative;
+  height: 2em;
+  margin-top: -2em;
 }
 
 button {
@@ -68,18 +98,6 @@ select {
   END of reveal modal
   --------------------------------------------------------------------------*/
 
-#footer {
-  font-size: x-small;
-  font-style: italic;
-  text-align: right;
-  width:100%;
-  padding-top: .5em;
-  padding-bottom: .5em;
-	position:absolute;
-	bottom:0;
-	left:0;
-}
-
 .groupname {
   float: right;
   font-style: bold;
@@ -118,7 +136,7 @@ select {
 
 .groupBox { 
   margin: .5em; 
-  min-width: 138px;
+  min-width: 128px;
   max-width: 380px;
   padding: 10px;
   -webkit-border-radius:3px;

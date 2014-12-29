@@ -3,12 +3,17 @@
     <meta name="title" content="Grouper" />
     <meta charset="UTF-8">
     <LINK REL=StyleSheet HREF="css/style.css" TYPE="text/css" MEDIA=all>
+
+    <title>Grouper</title>
+
   </head>
   
   <body onload="init()">
 
-    <title>Grouper</title>
-      
+<!-- <div id="header">Tobias arbejder for øjeblikket på serveren - siden kan derfor være ustabil</div> -->
+
+  	<div id="container"><div id="content">
+
       <div id="peopleBox">
         <div id="import">
           <button onclick='importClassFromLectio(event)'>Importér klasse: </button>
@@ -38,9 +43,10 @@
         <button id='randomGroupButton' onclick='selectRandomGroup()'>Vælg tilfældig gruppe</button>
         
       </div>
-    
-    <div id="modal" class="reveal-modal">
-    </div>
+
+    </div></div>
+
+    <div id="modal" class="reveal-modal"></div>
     
     <footer id="footer">This work is licensed by <a href=http://tobias.bindslet.dk>Tobias Bindslet</a> under a <a href=http://creativecommons.org/licenses/by-nc/3.0/>Creative Commons License for attributed, non-commercial use</a>.</footer>
 

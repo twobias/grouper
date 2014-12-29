@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Grouper unit tests</title>
+
+    <link rel="stylesheet" href="qunit-1.16.0.css" />
+    <script src="qunit-1.16.0.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="../js/jquery.reveal.js"></script>
+    <script src="../js/jquery.ui.touch-punch.min"></script>
+    <script src="../js/grouper.js"></script>
+    <script src="../js/scraper.js"></script>    
+
+    <script>
+    
+    QUnit.module( "Helper functions" );
+    test("removeHTMLTags", function() {
+        equal(removeHTMLTags("<bold>ok</bold"), "ok");
+    });
+
+    QUnit.module( "PHP Proxy" );
+    test("Proxy responds with html?", function(assert) {
+        var done = assert.async(); //asynchronous test
+        var sourceUrl = "http://twobias.synology.me/proxy/proxy.php?url=http%3A%2F%2Fwww.lectio.dk%2…bnav%2Fmembers.aspx%3Fklasseid%3D9311115495%26showstudents%3D1&mode=native";
+        $.ajax({
+            url: sourceUrl,
+            type: "get",
+            dataType: "html",
+            success: function(data) {
+                ok(data.search("html>"));
+                done();
+            }
+        });
+    });
+    
+    QUnit.module( "Scraping" );
+    test("Scrape single student name", function() {
+        //var singleStudentHTML = '<td class="smallCol" lectioContextCard="S9375029870"><span class="noWrap">1kE 10</span></td><td class="largeCol 
+        var singleStudentHTML = '</span></td><td class="largeCol printUpscaleFontFornavn" lectioContextCard="S9375029870">\n\t\t<span class="noWrap">\n\t\t<a id="s_m_Content_Content_laerereleverpanel_alm_gv_ctl06_lnk1" href="/lectio/71/SkemaNy.aspx?type=elev&amp;elevid=9375029870">Æmilie Jøhånsen</a>\n\t\t</span>\n\t\t</td><td class="largeCol" lectioContextCard="S9375029870"><span class="noWrap">Krüger</span></td><td class="nowrap"><span lectioContextCard="SR8527589771">2014/15 10b Engelsk Samfundsfag Psykologi</span></td>';
+        equal(studentNameFromHTML(singleStudentHTML), "Æmilie J. Krüger");
+    });
+    test("Scrape doubled student ids", function() {
+        var doubleStudentIdHTML = '<td class="smallCol" lectioContextCard="S9375029870"><span class="noWrap">1fE 10</span></td><td class="largeCol printUpscaleFontFornavn" lectioContextCard="S9375029870">\n\t\t<span class="noWrap">\n\t\t<a id="s_m_Content_Content_laerereleverpanel_alm_gv_ctl06_lnk1" href="/lectio/71/SkemaNy.aspx?type=elev&amp;elevid=9375029870">Otto Samuelsdatter</a>\n\t\t</span>\n\t\t</td><td class="largeCol" lectioContextCard="S9375029870"><span class="noWrap">Kogger</span></td><td class="nowrap"><span lectioContextCard="SR8527589771">2014/15 10b Engelsk Samfundsfag Psykologi</span></td>\n\t\t<td class="smallCol" lectioContextCard="S9375029870"><span class="noWrap">1kE 10</span></td><td class="largeCol printUpscaleFontFornavn" lectioContextCard="S9375029870">\n\t\t<span class="noWrap">\n\t\t<a id="s_m_Content_Content_laerereleverpanel_alm_gv_ctl06_lnk1" href="/lectio/71/SkemaNy.aspx?type=elev&amp;elevid=9375029870">Æmilie Jøhånsen</a>\n\t\t</span>\n\t\t</td><td class="largeCol" lectioContextCard="S9375029870"><span class="noWrap">Krüger</span></td><td class="nowrap"><span lectioContextCard="SR8527589771">2014/15 10b Engelsk Samfundsfag Psykologi</span></td>';
+        equal(studentNamesFromHtml(doubleStudentIdHTML)[0], "Otto S. Kogger");
+        equal(studentNamesFromHtml(doubleStudentIdHTML)[1], "Æmilie J. Krüger");
+    });
+    </script>
+</head>
+<body>
+    <div id="qunit"></div>
+</body>
+</html>
