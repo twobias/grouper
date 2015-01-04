@@ -46,6 +46,7 @@ var getClassIdsFromLectio = function () {
 };
 
 var scrapeClassIdsFromLectio = function (sourceUrl) {  
+  console.log(sourceUrl);
   $.ajax({
     url: sourceUrl,
     type: "get",
@@ -60,6 +61,11 @@ var scrapeClassIdsFromLectio = function (sourceUrl) {
           src = src.substring(0, src.search("'>"));
           var linkText = links[n].substring(links[n].search("'>") + 2);
           linkText = linkText.substring(0, linkText.search("<\\\\/a"));
+          var r = /\\u([\d\w]{4})/gi; //find unicode escape sequences
+          linkText = linkText.replace(r, function (match, grp) {
+            return String.fromCharCode(parseInt(grp, 16)); 
+          } );
+          linkText = unescape(linkText);
           $('select#class').append($('<option></option>').attr("value", src).text(linkText));
         }
       }          
