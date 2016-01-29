@@ -28,6 +28,7 @@ var init = function () {
       nGroups(ui.value);
     }
   });
+  setMatrixPossible(false);
   loadAll();
 };
 
@@ -43,6 +44,7 @@ var loadAll = function () {
     $('#randomGroupButton').show();
     $('#formGroups').show();
     $('#groups').show();
+    setMatrixPossible(true);
   }
 };
 
@@ -68,6 +70,7 @@ var clearPeople = function () {
   saveToLocal();
   localStorage.removeItem('peopleList');
   localStorage.removeItem('groupList');
+  setMatrixPossible(false);
   if ($('ul#people > li').length == 0) {
     $('ul#people').hide();
     $('#rndPersonButton').hide();
@@ -230,6 +233,7 @@ var groupsOfN = function (n) {
     $('#rndPersonButton').hide();
     
   }
+  setMatrixPossible(true);
   setSortables();
   saveToLocal();
 }
@@ -297,8 +301,68 @@ var nGroups = function (n) {
     ($('ul#people')).hide();
     $('#rndPersonButton').hide();
   }
+  setMatrixPossible(true);
   setSortables();
   saveToLocal();
+}
+
+var setMatrixPossible = function(b){
+	$('#matrixGroups').hide();
+	$("input[name='matrixCheckBox']").prop('checked', false);
+	if (b) {
+    $("input[name='matrixCheckBox']").removeAttr("disabled");
+  } else {
+    $("input[name='matrixCheckBox']").attr("disabled", true);
+  }
+}
+
+var matrixGroups = function() {
+	if ($("input[name='matrixCheckBox']").is(':checked')) {
+		$('#groups').hide();
+		$('#formGroups').hide();
+		document.getElementById('matrixGroups').innerHTML = "";
+		var groupArray = new Array();
+	  $('#groups > ul').each(function () {
+	    groupArray.push(this);
+	  });
+
+	  var matrix = [];
+		var t = document.createElement("table");
+		t.classList.add("matrixTable");
+	  for (var g = groupArray.length - 1; g >= 0; g--) {
+		  var r = t.insertRow(0); 
+		  r.classList.add("matrixRow");
+		  for (var i = 0; i < groupArray[g].childNodes.length; ++i) {
+		  	var chi = groupArray[g].childNodes[i];
+		  	if ($(chi).is("li")) {
+		  		var c = r.insertCell(0);
+		  		c.classList.add("matrixCell");
+		  		c.innerHTML = chi.innerHTML;
+		  	}
+			}
+		  var c = r.insertCell(0);
+		  c.classList.add("matrixHeaderCell");
+		  c.innerHTML = "" + (g + 1);		  
+	  }
+	  
+	  var r = t.insertRow(0); 
+	  r.classList.add("matrixRow");
+	  var c = r.insertCell(0);
+	  c.classList.add("matrixHeaderCell");
+	  c.innerHTML = "&nbsp;";
+	  var matrixGroupNames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+	  for (var m = groupArray[0].childNodes.length - 3; m >= 0; m--) {
+	  	var c = r.insertCell(1);
+	  	c.classList.add("matrixHeaderCell");
+	  	c.innerHTML = "" + matrixGroupNames[m];
+		}
+    document.getElementById('matrixGroups').appendChild(t);
+		$('#matrixGroups').show();
+	} else {
+		$('#groups').show();
+		$('#formGroups').show();
+		$('#matrixGroups').hide();
+	}
 }
 
 var deleteGroup = function (id){
@@ -360,6 +424,7 @@ var loadFromLocal = function () {
   if (localStorage.getItem('groupList')) {
     var g = document.getElementById("groups");
     g.innerHTML = localStorage.getItem('groupList');
+    setMatrixPossible(true);
   }
   setSortables();
   if ($('ul#people > li').length == 0) {
@@ -391,6 +456,7 @@ $("#addGroupText").keyup(function (e) {
     addGroup($('input[id=addGroupText]').val(), true);
     $('input[id=addGroupText]').val("");
     saveToLocal();
+    setMatrixPossible(true);
   }
 });
 
@@ -471,6 +537,7 @@ var addGroup = function (name, fade) {
     */
   }
   $('ul#groups').show();
+  setMatrixPossible(true);
   setSortables();
   saveToLocal();
 }
@@ -487,13 +554,13 @@ $(document).keyup(function (e){
 });
 
 function htmlEncode(value){
-  //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  //create an in-memory div, set it's inner text(which jQuery automatically encodes)
   //then grab the encoded contents back out.  The div never exists on the page.
   return $('<div/>').text(value).html();
 }
 
 function htmlDecode(value){
-  //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  //create an in-memory div, set it's inner text(which jQuery automatically encodes)
   //then grab the encoded contents back out.  The div never exists on the page.
   return $('<div/>').html(value).text();
 }

@@ -206,6 +206,85 @@ ul .groupbox {
   background: rgba(255,0,0,1);
 }
 
+.matrixTable {
+  width: 100%;
+  margin: 0; 
+  padding-left: 1.5em;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  display: inline-block;
+  clear: left;
+  background-color: white;
+  -moz-user-select: -moz-text;
+  -khtml-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.matrixRow {
+}
+
+.matrixHeaderCell {
+  background-color: white;
+  color : black;
+  text-align: center;
+  vertical-align: middle;
+  font-size:18px;
+  padding: 2px;
+}
+
+.matrixCell {
+  background: #AFCC5C;
+  color : #000000;
+  text-align: center;
+  vertical-align: middle;
+  font-size:15px; 
+  padding: 2px;
+}
+
+td:nth-child(2){
+  background: #AFCC5C;
+  color : #000000;
+}
+td:nth-child(3){
+  background: orange;
+  color : #000000;
+}
+td:nth-child(4){
+  background: lightblue;
+  color : #000000;
+}
+td:nth-child(5){
+  background: #ffff55;
+  color : #000000;
+}
+td:nth-child(6){
+  background: #BBBBBB;
+  color : #000000;
+}
+td:nth-child(7){
+  background: #ff88dd;
+  color : #000000;
+}
+td:nth-child(8){
+  background: #FF6666;
+  color : #000000;
+}
+td:nth-child(9){
+  background: #cc9922;
+  color : #000000;
+}
+td:nth-child(10){
+  background: #009900;
+  color : #FFFFFF;
+}
+td:nth-child(11){
+  background: #990000;
+  color : #FFFFFF;
+}
+
 h1 {
   float:left ;
 }

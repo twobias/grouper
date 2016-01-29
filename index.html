@@ -31,12 +31,15 @@
 
 
       <div id="groupBox">
+        <label><input type="checkbox" name="matrixCheckBox" value="matrix" onclick='matrixGroups()'><i><small>lav matrixgrupper</i></small></label>
         <div id="formGroups">
-          <button onclick='groupsOfN()'>Lav grupper á </button> <input id="spinner" name="value" value="3" /> <!--<label><input type="checkbox" name="matrix" value="matrix" disabled><del>in matrix</del></label>-->
+          <button onclick='groupsOfN()'>Lav grupper á </button> <input id="spinner" name="value" value="3" /> 
           <br /><button onclick='nGroups()'>Lav <i>n</i> grupper </button> <input id="spinnerN" name="n" value="3" />
           <input type="text" id="addGroupText" name="addGroup" autofocus="autofocus" placeholder="Tilføj gruppe">
         </div>
         <div id="groups">
+        </div>
+        <div id="matrixGroups">
         </div>
         <button onclick='clearPeople()'>Ryd alt</button>
         <button onclick='exportList()'>Eksportér</button>

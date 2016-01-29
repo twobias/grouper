@@ -46,7 +46,6 @@ var getClassIdsFromLectio = function () {
 };
 
 var scrapeClassIdsFromLectio = function (sourceUrl) {  
-  console.log(sourceUrl);
   $.ajax({
     url: sourceUrl,
     type: "get",
