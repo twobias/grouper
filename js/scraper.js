@@ -109,12 +109,12 @@ var studentNamesFromHtml = function(html) {
   var sNames = [];
   //regex search to search for table lines with student
   //e.g.: '1iE 30</span></td><td class="largeCol printUpscaleFontFornavn" lectioContextCard="S10126130423">     <span class="noWrap">       <a id="s_m_Content_Content_laerereleverpanel_alm_gv_ctl02_lnk1" href="/lectio/71/SkemaNy.aspx?type=elev&amp;elevid=10126130423">Alexander Ulbæch</a>          </span>           </td><td class="largeCol" lectioContextCard="S10126130423"><span class="noWrap">Dupont</span></td><td class="nowrap"><span'
-  var regExp = /[1-3][a-zA-ZæøåÆØÅ]E?F? [0-9][0-9]?<\/span><\/td>/g;
+  var regExp = /[a-zA-ZæøåÆØÅ0-9][a-zA-ZæøåÆØÅ0-9]E?F?G? [0-9][0-9]?<\/span><\/td>/g;
                /*
-               _number 1-3_
-               _letter(class designation: danish letter)_
+               _2 x (class designation: danish letter or digit)_
                _optional E
                _optional F_
+               _optional G_
                _space_
                _1-2 digit number_
                _</span></td><td class="largeCol printUpscaleFontFornavn_
@@ -126,10 +126,10 @@ var studentNamesFromHtml = function(html) {
     sNames[n] = studentNameFromHTML(sNames[n]);
   }
   return sNames;
-}
+};
 
 var studentNameFromHTML = function(html) {
-  var sName = html.substring(0, html.search('</span></td><td class="nowrap"><span')); //cut off everything after the last name
+  var sName = html.substring(0, html.search('</span></td><td class="nowrap">')); //cut off everything after the last name
   //sName = sName.substring(sName.search('>'), sName.length); //cut off everything before a > (remove half-html> tags leftover from regexp search)
   sName = sName.replace(/(<([^>]+)>)/ig,""); //remove all html <tags>
   sName = htmlDecode(sName); //decode html-chars such as &aring;
@@ -149,4 +149,4 @@ var studentNameFromHTML = function(html) {
   }
   sName += " " + names[m+1];
   return sName;
-}
+};
