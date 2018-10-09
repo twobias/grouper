@@ -189,6 +189,7 @@ ul .groupbox {
   background: #AFCC5C;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aad44f', endColorstr='#609d29',GradientType=0 );
   border:1px solid #5b8821;
+  list-style-type: none;
 }
 
 .peoplebox li, #people li, .groupbox li, #addpersonText{
