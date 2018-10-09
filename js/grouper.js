@@ -85,7 +85,7 @@ var selectRandomPerson = function () {
   var lot = Math.floor(Math.random()*nameArray.length);
   var name = nameArray[lot].textContent;
   htmlModal ("<ul><li><strong>" + name + "</strong></li></ul>");
-}
+};
 
 var selectRandomGroup = function () {
   var groupArray = new Array();
@@ -102,7 +102,7 @@ var selectRandomGroup = function () {
       name = name.replace('<br/>','<br/><br/>');
     };
   htmlModal ("<ul><strong>" + name + "</strong></ul>");
-}
+};
 
 var exportList = function () {
   var expoPeople = "";
@@ -124,15 +124,14 @@ var exportList = function () {
   $('#groups > ul').each(function () {
     countGroups++;
     if (countGroups > 1) {
-      expoGroups += "\n\n";
+      expoGroups += "\n";
     }
     
     var thisGroup = this;
     for (var i = 0; i < thisGroup.childNodes.length; ++i) {
-      if (i > 0) {expoGroups += "\n";};
-      expoGroups += thisGroup.childNodes[i].textContent.replace('x ','');;
-      
-    };
+      if (i > 0) {expoGroups += "\n";}
+      expoGroups += thisGroup.childNodes[i].textContent.replace('[x] ','');     
+    }
   });
   
   textModal (expoPeople, expoGroups);
@@ -147,7 +146,7 @@ var htmlModal = function (htmlToShow) {
     closeonbackgroundclick: true, // if you click background will modal close?
     dismissmodalclass: 'close-reveal-modal'    // the class of a button or element that will close an open modal
   });
-}
+};
 
 var textModal = function (textToShowLeft, textToShowRight) {
   document.getElementById('modal').innerHTML = '<h2>Personer/grupper:</h2><a class="close-reveal-modal">&#215;</a>';
@@ -182,7 +181,7 @@ var textModal = function (textToShowLeft, textToShowRight) {
     closeonbackgroundclick: true, // if you click background will modal close?
     dismissmodalclass: 'close-reveal-modal'    // the class of a button or element that will close an open modal
   });
-}
+};
 
 var groupsOfN = function (n) {
   //generate groups from the #people list
@@ -214,7 +213,7 @@ var groupsOfN = function (n) {
       t.innerHTML = "<span contentEditable=true>" + i + "</span>";
       var d = document.createElement("Section");
       d.classList.add("groupDelete");
-      d.innerHTML = "<a title=\"Slet gruppe " + i + "\" class=\"icon-remove-sign\" onClick=\"deleteGroup('" + i + "')\">&nbsp;x </a>";
+      d.innerHTML = "<a title=\"Slet gruppe " + i + "\" class=\"icon-remove-sign\" onClick=\"deleteGroup('" + i + "')\">&nbsp;[x] </a>";
       group[i].title = "Gruppe " + i;
       group[i].setAttribute("id", i);
       group[i].appendChild(d);
